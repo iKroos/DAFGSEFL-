@@ -37,3 +37,9 @@ if (message.content.startsWith(adminprefix + 'setava')) {
     message.channel.send(`Changing The Avatar To :**${argresult}** `);
 }
 });
+
+
+
+
+
+client.login(process.env.BOT_TOKEN);
