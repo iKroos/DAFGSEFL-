@@ -37,31 +37,27 @@ if (message.content.startsWith(adminprefix + 'setava')) {
 }
 });
 
-var antispam = require("anti-spam");//npm i anti-spam
- 
-antispam(client, {
-  warnBuffer: 3, //الحد الأقصى المسموح به من الرسائل لإرسالها في الفاصل الزمني قبل الحصول على تحذير.
-  maxBuffer: 5, // الحد الأقصى المسموح به من الرسائل لإرسالها في الفاصل الزمني قبل الحصول على ميوت.
-  interval: 1000, // مقدار الوقت قبل حصول باند
-  warningMessage: "stop spamming.", // رسالة تحذير اذا سوا سبام!
-  roleMessage: "Muted!!", // الرسالة الي تجي اذا شخص اخذ ميوت
-  roleName: "Muted", // اسم رتبة الميوت
-  maxDuplicatesWarning: 7, // عدد الرسايل الي قبل التحذيرات
-  maxDuplicatesBan: 10, // عدد الرسايل الي يقدر المستخدم يرسلها قبل الميوت
-  time: 10, // عدد الوقت الي يجلس لين تسحب رتبة الميوت من الشخص الحسبة برمجية وليست كتابية 
-});
 
 
-client.on('messageCreate', async(message) => {
-  let prefix = 'k';
-  let args = message.cleanContent.split(' ');
-  if (args[0] == `${prefix}ping`) {
-    let time = Date.now();
-    let msg = await message.channel.createMessage('pong');
-    msg.edit(`\`\`\`javascript\nTime taken: ${Date.now() - time} ms\nDiscord API: ${Math.floor(message.guild.shard.latency)} ms\`\`\``);
-  }
-});
 
+client.on("message", message => {
+if(message.content.startsWith(prefix + "avatar")){
+if(message.author.bot || message.channel.type == "dm") return;
+var args = message.content.split(" ")[1];
+var avt = args || message.author.id;
+client.fetchUser(avt)
+.then((user) => {
+avt = user
+let avtEmbed = new Discord.RichEmbed()
+.setColor("#36393e")
+.setAuthor(`${avt.username}'s Avatar`, message.author.avatarURL)
+.setImage(avt.avatarURL)
+.setFooter(`PrimeBot.`, message.client.user.avatarURL);
+message.channel.send(avtEmbed);
+})
+.catch(() => message.channel.send(`Error`));
+} 
+}); 
 
 
 
