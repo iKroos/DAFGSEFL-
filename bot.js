@@ -43,20 +43,10 @@ if (message.content.startsWith(adminprefix + 'setava')) {
 client.on('messageCreate', async(message) => {
   let prefix = 'k';
   let args = message.cleanContent.split(' ');
-  if (args[0] == `${prefix}setnick`) {
-    if (!message.member.hasPermission('manageNicknames')) return;
-    let member = message.channel.guild.members.get(message.mentions[0] ? message.mentions[0].id : args[1]);
-    if (!member) return message.channel.createMessage(`:rolling_eyes: - **I can't find this member**`);
-    try {
-      let nickname = message.content.split(' ').slice(2).join(' ') || '';
-      await member.edit({
-        nick: nickname
-      });
-      let reply = nickname == '' ? `:white_check_mark: **${member.username}**'s nick has been reset.` : `:white_check_mark: **${member.username}**'s nick has been changed to \`${nickname}\`!`;
-      await message.channel.createMessage(reply);
-    } catch (e) {
-      await message.channel.createMessage(`:rolling_eyes: - I couldn't update that user. Please check my permissions and role position.`);
-    }
+  if (args[0] == `${prefix}ping`) {
+    let time = Date.now();
+    let msg = await message.channel.createMessage('pong');
+    msg.edit(`\`\`\`javascript\nTime taken: ${Date.now() - time} ms\nDiscord API: ${Math.floor(message.guild.shard.latency)} ms\`\`\``);
   }
 });
 
