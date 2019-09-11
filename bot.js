@@ -59,7 +59,23 @@ message.channel.send(avtEmbed);
 } 
 }); 
 
-
+client.on('message', zaid => {
+    if (zaid.content === ('kbot')) {
+        const bot = new Discord.RichEmbed()
+            .setAuthor(client.user.username,client.user.avatarURL)
+            .setThumbnail(client.user.avatarURL)
+            .setColor("#36393e")
+            .addField('✽ **Bot Ping** :' , `» ${Date.now() - zaid.createdTimestamp}` + ' ms', true)
+            .addField('✽ **Servers** :', `» ${client.guilds.size}`, true)
+            .addField('✽ **Channels** :' , `» ${client.channels.size} ` , true)
+            .addField('✽ **Users** :' ,`» ${client.users.size} ` , true)
+            .addField('✽ **Bot Name** :' , `» ${client.user.tag} ` , true)
+            .addField('✽ **Bot Owner** :' , `» <@527825056860995594>` , true) 
+            .setFooter(zaid.author.username, zaid.author.avatarURL)
+            zaid.channel.send(bot)
+    })
+}
+});
 
 
 
