@@ -78,6 +78,20 @@ client.on('message', zaid => {
 });
 
 
+client.on('message', message => {
+    if (message.author.bot) return;
+     if (message.content === "pnew") {
+       let em  = client.guilds.get("620707631216197633").emojis.find(r => r.name === "1_");
+       let em2  = client.guilds.get("620707631216197633").emojis.find(r => r.name === "2_");
+       let em3  = client.guilds.get("620707631216197633").emojis.find(r => r.name === "3_");
+       let em4  = client.guilds.get("620707631216197633").emojis.find(r => r.name === "4_");
+
+     message.channel.send(`**${em} حلاوة**`);
+
+    }
+});
+
+
 
 
 client.login(process.env.BOT_TOKEN);
